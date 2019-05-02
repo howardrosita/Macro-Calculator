@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+    <body>
+        <div class="mcalMainWrapper">
+            <h2 class="mcalTitle">MACRO CALCULATOR</h2>
+            <p class="mcalDescription">To calculate your daily calorie and macro goals, simply fill out the information on my calculator below! Further details on calculating your macros are available in my nutrition guide.</p>
+
+            <div class="mcalCalculatorWrapper">
+
+                <div class="mcalGenderWrapper">
+                    <label class="mcalLabel">GENDER</label>
+                    <div class="mcalGender">
+                        <div class="mcalF mcalGenderActive" data-gender="female">FEMALE</div>
+                        <div class="mcalM" data-gender="male">MALE</div>
+                    </div>
+                </div>
+
+                <div class="mcalAgeWrapper">
+                    <label class="mcalLabel">AGE</label>
+                    <div class="mcalAgeOuter">
+                        <input type="number" class="mcalAge">
+                    </div>
+                </div>
+
+                <div class="mcalBodyWeightHeightWrapper">
+                    <div class="mcalUnits">
+                        <div class="mcalUnitWrapper">
+                            <label class="mcalLabel">UNITS</label>
+                            <div class="mcalUnit">
+                                <div class="mcalPounds mcalUnitActive" data-unit="pounds">LB</div>
+                                <div class="mcalKilograms" data-unit="kilograms">KG</div>
+                            </div>
+                        </div>
+                        <div class="mcalWeightWrapper">
+                            <label class="mcalLabel">WEIGHT</label>
+                            <div class="mcalWeightOuter">
+                                <input type="number" class="mcalWeight weightPounds">
+                                <span class="poundsUnit">lbs</span>
+                                <input type="number" class="mcalWeight weightKilo">
+                                <span class="kiloUnit">kg</span>
+                            </div>
+                        </div>
+                        <div class="mcalHeightWrapper">
+                            <label class="mcalLabel">HEIGHT</label>
+                            <div class="mcalWeightOuter">
+                                <input type="number" class="mcalHeight heightFeet">
+                                <span class="feetUnit">ft</span>
+                                <input type="number" class="mcalHeight heightInches">
+                                <span class="inchesUnit">in</span>
+                                <input type="number" class="mcalHeight heightCM">
+                                <span class="unitCM">cm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mcalActivityFactorsWrapper">
+                    <label class="mcalLabel">Activity Factors</label>
+                    <div class="mcalActivityWrapper">
+                        <div class="mcalActivityFactor">
+                            <div class="mcalResting mcalActiveActivityFactorInput mcalActivityFactorInput" data-activity="resting"><i class="checkIcon fas fa-check"></i>Resting</div>
+                            <div class="mcalSedentary mcalActivityFactorInput" data-activity="sedentary"><i class="checkIcon fas fa-check"></i>Sedentary</div>
+                            <div class="mcalLight mcalActivityFactorInput" data-activity="light"><i class="checkIcon fas fa-check"></i>Light</div>
+                        </div>
+                        <div class="mcalActivityFactor">
+                            <div class="mcalModerate mcalActivityFactorInput" data-activity="moderate"><i class="checkIcon fas fa-check"></i>Moderate</div>
+                            <div class="mcalVeryActive mcalActivityFactorInput" data-activity="veryactive"><i class="checkIcon fas fa-check"></i>Very Active</div>
+                            <div class="mcalExtremeActive mcalActivityFactorInput" data-activity="extremeactive"><i class="checkIcon fas fa-check"></i>Extreme Active</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mcalWeightGoalWrapper">
+                    <label class="mcalLabel">Weight Goal</label>
+                    <div class="mcalSustain mcalActiveWeightGoal mcalWeightGoal" data-weightgoal="sustain"><i class="checkIcon1 fas fa-check"></i>Sustain</div>
+                    <div class="mcalLose mcalWeightGoal" data-weightgoal="lose"><i class="checkIcon1 fas fa-check"></i>Lose</div>
+                    <div class="mcalGain mcalWeightGoal" data-weightgoal="gain"><i class="checkIcon1 fas fa-check"></i>Gain</div>
+                </div>
+
+            </div>
+        </div>
+        <script>
+        $('.mcalGender div').click(function(){
+            let gender = $(this).data("gender") == "male" ? "male":"female";
+            $('.mcalGender div').removeClass("mcalGenderActive");
+            $(this).addClass("mcalGenderActive");
+        });
+        $('.mcalUnit div').click(function(){
+            let units = $(this).data("unit");
+            if((units == "kilograms")){
+                $('.weightPounds, .poundsUnit').hide();
+                $('.heightFeet, .feetUnit, .heightInches, .inchesUnit').hide();
+                $('.weightKilo, .kiloUnit').show();
+                $('.heightCM, .unitCM').show();
+                $('.mcalKilograms').addClass('mcalUnitActive');
+                $('.mcalPounds').removeClass('mcalUnitActive');
+            }
+            if((units == "pounds")){
+                $('.weightKilo, .kiloUnit').hide();
+                $('.heightCM, .unitCM').hide();
+                $('.weightPounds, .poundsUnit').show();
+                $('.heightFeet, .feetUnit, .heightInches, .inchesUnit').show();
+                $('.mcalPounds').addClass('mcalUnitActive');
+                $('.mcalKilograms').removeClass('mcalUnitActive');
+            }
+        });
+        $('.mcalActivityFactor div').click(function(){
+            let activity = $(this).data("activity");
+            if((activity == "resting")){
+                $('.mcalActivityFactor div').removeClass("mcalActiveActivityFactorInput");
+                $(this).addClass("mcalActiveActivityFactorInput");
+                
+            }
+            else if((activity == "sedentary")){
+                $('.mcalActivityFactor div').removeClass("mcalActiveActivityFactorInput");
+                $(this).addClass("mcalActiveActivityFactorInput");
+            }
+            else if((activity == "light")){
+                $('.mcalActivityFactor div').removeClass("mcalActiveActivityFactorInput");
+                $(this).addClass("mcalActiveActivityFactorInput");
+            }
+            else if((activity == "moderate")){
+                $('.mcalActivityFactor div').removeClass("mcalActiveActivityFactorInput");
+                $(this).addClass("mcalActiveActivityFactorInput");
+            }
+            else if((activity == "veryactive")){
+                $('.mcalActivityFactor div').removeClass("mcalActiveActivityFactorInput");
+                $(this).addClass("mcalActiveActivityFactorInput");
+            }
+            else if((activity == "extremeactive")){
+                $('.mcalActivityFactor div').removeClass("mcalActiveActivityFactorInput");
+                $(this).addClass("mcalActiveActivityFactorInput");
+            }
+            else{
+                $('.mcalActivityFactor div').removeClass("mcalActiveActivityFactorInput");
+            }
+        });
+
+        $('.mcalWeightGoalWrapper div').click(function(){
+            let weightGoal = $(this).data("weightgoal");
+            if((weightGoal == "sustain")){
+                $('.mcalWeightGoalWrapper div').removeClass("mcalActiveWeightGoal");
+                $(this).addClass("mcalActiveWeightGoal");
+            }
+            else if((weightGoal == "lose")){
+                $('.mcalWeightGoalWrapper div').removeClass("mcalActiveWeightGoal");
+                $(this).addClass("mcalActiveWeightGoal");
+            }
+            else if((weightGoal == "gain")){
+                $('.mcalWeightGoalWrapper div').removeClass("mcalActiveWeightGoal");
+                $(this).addClass("mcalActiveWeightGoal");
+            }
+            else{
+                $('.mcalWeightGoalWrapper div').removeClass("mcalActiveWeightGoal");
+            }
+        });
+        </script>
+    </body>
+</html>
